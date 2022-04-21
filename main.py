@@ -6,7 +6,7 @@ from model import SimpleCNN
 import tqdm
 
 
-def run_cnn():
+def run_cnn(device):
     batch_size = 64
     learning_rate = 1e-3
     num_epochs = 1
@@ -21,15 +21,16 @@ def run_cnn():
     classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
     model = SimpleCNN()
+    model.to(device)
     
     optimizer = torch.optim.Adam(SimpleCNN.parameters(model), learning_rate)
     loss_func = torch.nn.CrossEntropyLoss()
-    train_loss = train(model, training_dataloader, loss_func, optimizer, num_epochs)
-    test_loss, accuracy = test(model, testing_dataloader, loss_func, optimizer)
+    train_loss = train(model, training_dataloader, loss_func, optimizer, num_epochs, device)
+    test_loss, accuracy = test(model, testing_dataloader, loss_func, optimizer, device)
 
     return train_loss, test_loss, accuracy
 
-def train(model, dataloader, loss_func, optimizer, num_epochs):
+def train(model, dataloader, loss_func, optimizer, num_epochs, device):
     total_loss = 0
 
     model.train()
@@ -39,7 +40,7 @@ def train(model, dataloader, loss_func, optimizer, num_epochs):
         with tqdm.tqdm(dataloader, unit="batch") as tepoch:
             for X, Y in tepoch:
                 tepoch.set_description(f"Epoch {epoch}")
-
+                X, Y = X.to(device), Y.to(device)
                 output = model(X)
                 optimizer.zero_grad()
                 loss = loss_func(output, Y)
@@ -55,7 +56,7 @@ def train(model, dataloader, loss_func, optimizer, num_epochs):
         
 
 
-def test(model, dataloader, loss_func, optimizer):
+def test(model, dataloader, loss_func, optimizer, device):
     
     epoch_loss_sum = 0
     epoch_correct_sum = 0
@@ -64,7 +65,7 @@ def test(model, dataloader, loss_func, optimizer):
     with tqdm.tqdm(dataloader, unit="batch") as tepoch:
         for X, Y in tepoch:
             tepoch.set_description(f"Test progress")
-
+            X, Y = X.to(device), Y.to(device)
             output = model(X)
             loss = loss_func(output, Y)
             epoch_loss_sum += loss.item() * X.shape[0]
@@ -91,7 +92,9 @@ def correct_predict_num(logit, target):
 
 
 def main():
-    train_loss, test_loss, test_acc = run_cnn()
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+    print(device)
+    train_loss, test_loss, test_acc = run_cnn(device)
     print("Training loss: {}".format(train_loss))
     print("Testing Loss: {}".format(test_loss))
     print("Testing Accuracy: {}".format(test_acc))
