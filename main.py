@@ -2,8 +2,8 @@ from pickletools import optimize
 import torchvision
 import torch
 import torchvision.transforms as tr
-from PIL import Image
 from model import SimpleCNN
+import tqdm
 
 
 def run_cnn():
@@ -24,7 +24,10 @@ def run_cnn():
     
     optimizer = torch.optim.Adam(SimpleCNN.parameters(model), learning_rate)
     loss_func = torch.nn.CrossEntropyLoss()
-    train(model, training_dataloader, loss_func, optimizer, num_epochs)
+    train_loss = train(model, training_dataloader, loss_func, optimizer, num_epochs)
+    test_loss, accuracy = test(model, testing_dataloader, loss_func, optimizer)
+
+    return train_loss, test_loss, accuracy
 
 def train(model, dataloader, loss_func, optimizer, num_epochs):
     total_loss = 0
@@ -33,19 +36,20 @@ def train(model, dataloader, loss_func, optimizer, num_epochs):
     for epoch in range(num_epochs):
         epoch_loss = 0
 
-        for X, Y in dataloader:
+        with tqdm.tqdm(dataloader, unit="batch") as tepoch:
+            for X, Y in tepoch:
+                tepoch.set_description(f"Epoch {epoch}")
 
-            output = model(X)
+                output = model(X)
+                optimizer.zero_grad()
+                loss = loss_func(output, Y)
+                loss.backward()
+                optimizer.step()
 
-            optimizer.zero_grad()
-            loss = loss_func(output, Y)
-            loss.backward()
-            optimizer.step()
+                epoch_loss += loss.item() * X.shape[0]
 
-            epoch_loss += loss.item() * X.shape[0]
-
-        print("Epoch {}: {}".format(epoch, epoch_loss.item()))
-        total_loss += epoch_loss
+            print("Epoch {}: {}".format(epoch, epoch_loss))
+            total_loss += epoch_loss
     
     return total_loss / num_epochs
         
@@ -57,15 +61,17 @@ def test(model, dataloader, loss_func, optimizer):
     epoch_correct_sum = 0
 
     model.eval()
-    for X, Y in dataloader:
+    with tqdm.tqdm(dataloader, unit="batch") as tepoch:
+        for X, Y in tepoch:
+            tepoch.set_description(f"Test progress")
 
-        output = model(X)
-        loss = loss_func(output, Y)
-        epoch_loss_sum += loss.item() * X.shape[0]
-        epoch_correct_sum += correct_predict_num(output, Y)
+            output = model(X)
+            loss = loss_func(output, Y)
+            epoch_loss_sum += loss.item() * X.shape[0]
+            epoch_correct_sum += correct_predict_num(output, Y)
 
-    avg_loss = epoch_loss_sum / len(dataloader.dataset)
-    avg_correct = epoch_correct_sum / len(dataloader.dataset)
+        avg_loss = epoch_loss_sum / len(dataloader.dataset)
+        avg_correct = epoch_correct_sum / len(dataloader.dataset)
 
     return avg_loss, avg_correct
 
@@ -85,8 +91,10 @@ def correct_predict_num(logit, target):
 
 
 def main():
-    run_cnn()
-
+    train_loss, test_loss, test_acc = run_cnn()
+    print("Training loss: {}".format(train_loss))
+    print("Testing Loss: {}".format(test_loss))
+    print("Testing Accuracy: {}".format(test_acc))
 
 if __name__ == "__main__":
     main()
