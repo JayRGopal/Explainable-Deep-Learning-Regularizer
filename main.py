@@ -1,6 +1,4 @@
-import os
 import sys
-from pickletools import optimize
 import torchvision
 import torch
 import torchvision.transforms as tr
@@ -90,7 +88,6 @@ def train(model, dataloader, loss_func, optimizer, num_epochs, device):
     
     return total_loss / (num_epochs)
         
-
 
 def test(model, dataloader, loss_func, device):
     """

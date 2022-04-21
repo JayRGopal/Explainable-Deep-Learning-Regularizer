@@ -1,10 +1,20 @@
 from torch import nn
 import torch.nn.functional as F
-import torch
 
 class SimpleCNN(nn.Module):
+    """
+    Class representing convolutional neural network through PyTorch DL framework
+    """
 
     def __init__(self, input_channels = 3, class_num = 10) -> None:
+        """
+        Initializes convolutional layers, pooling layers, and linear layers for
+        the SimpleCNN class. Inherits from nn.Module initializer function.
+        :param input_channels: number of color channels. Default 3 for RGB
+        :param class_num: number of classes that will be predicted by the model.
+            Default 10 for the 10 classes represented by CIFAR10
+        """
+
         super().__init__()
 
         self.conv_layer1 = nn.Conv2d(input_channels, 16, 4, 1)
@@ -24,6 +34,15 @@ class SimpleCNN(nn.Module):
         
     
     def forward(self, X):
+        """
+        Performs forward propagation through the defined CNN layers for given input
+
+        :param X: Input to the CNN network. Dimension (batch size, 3 , 32, 32)
+
+        :return: (batch size, 10) torch tensor output of convolution and 
+        subsequent linear layers. Size 10 given the 10 predicted classes.
+        """
+
         conv_output = self.pool1(F.relu(self.conv_layer1(X)))
         conv_output = self.pool2(F.relu(self.conv_layer2(conv_output)))
         conv_output = F.relu(self.conv_layer3(conv_output))
@@ -38,4 +57,5 @@ class SimpleCNN(nn.Module):
         vec_output = F.relu(self.linear5(vec_output))
         vec_output = F.relu(self.linear6(vec_output))
         vec_output = F.relu(self.linear7(vec_output))
+        print(vec_output.size())
         return vec_output
