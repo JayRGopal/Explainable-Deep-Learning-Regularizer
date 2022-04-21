@@ -89,7 +89,7 @@ class Positional_Encoding_Layer(nn.Module):
         """ Initializes trainable positional embeddings to add to the input """
         super(Positional_Encoding_Layer, self).__init__()
         
-        self.pos_embed = nn.Parameter([window_size, emb_size])
+        self.pos_embed = nn.Parameter((window_size, emb_size))
 
     def forward(self, word_embeds):
         """ Adds (trainable) positional embeddings to the input """
