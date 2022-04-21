@@ -7,16 +7,20 @@ import tqdm
 
 
 def run_cnn(device):
-    batch_size = 64
+    batch_size = 144
     learning_rate = 1e-3
-    num_epochs = 1
+    num_epochs = 10
 
     transform = tr.Compose([tr.ToTensor(), tr.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-    training_dataset = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
-    training_dataloader = torch.utils.data.DataLoader(training_dataset, batch_size=batch_size, shuffle=True, num_workers=2)
+    training_dataset = torchvision.datasets.CIFAR10(root='./data', train=True,\
+         download=True, transform=transform)
+    training_dataloader = torch.utils.data.DataLoader(training_dataset, \
+        batch_size=batch_size, shuffle=True, num_workers=2)
 
-    testing_dataset = torchvision.datasets.CIFAR10(root='./data', train=False, download=True, transform=transform)
-    testing_dataloader = torch.utils.data.DataLoader(testing_dataset, batch_size=batch_size, shuffle=False, num_workers=2)
+    testing_dataset = torchvision.datasets.CIFAR10(root='./data', train=False, \
+        download=True, transform=transform)
+    testing_dataloader = torch.utils.data.DataLoader(testing_dataset, \
+        batch_size=batch_size, shuffle=False, num_workers=2)
 
     classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
@@ -49,10 +53,11 @@ def train(model, dataloader, loss_func, optimizer, num_epochs, device):
 
                 epoch_loss += loss.item() * X.shape[0]
 
+            epoch_loss = epoch_loss / len(dataloader.dataset)
             print("Epoch {}: {}".format(epoch, epoch_loss))
             total_loss += epoch_loss
     
-    return total_loss / (num_epochs * len(dataloader.dataser))
+    return total_loss / (num_epochs)
         
 
 
