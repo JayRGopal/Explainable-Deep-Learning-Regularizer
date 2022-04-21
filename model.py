@@ -57,5 +57,4 @@ class SimpleCNN(nn.Module):
         vec_output = F.relu(self.linear5(vec_output))
         vec_output = F.relu(self.linear6(vec_output))
         vec_output = F.relu(self.linear7(vec_output))
-        print(vec_output.size())
         return vec_output
