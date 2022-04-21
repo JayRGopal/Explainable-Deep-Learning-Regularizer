@@ -17,24 +17,26 @@ class VisualTransformer(nn.Module):
          
         super().__init__()
         
-        self.embed_size = 32*32*3/(8*3)
-        self.window_size = 8*3
+        self.window_size = 24  #(8 x 3)
+        self.embed_size = 128  #32 x 32 x 3 / (8 x 3)
+        # Embed size and window size multiply to 32 x 32 x 3
         self.class_num = class_num
         
         ## --- ENCODER --- ##
         self.encoder_pos_embed = Positional_Encoding_Layer(self.window_size, self.embed_size)
         
         # Implements self-attention with 16 attention heads
-        self.encoding_layer = torch.nn.TransformerEncoderLayer(self.embed_size, 16, \
+        self.encoding_layer = torch.nn.TransformerEncoderLayer(d_model=self.embed_size, nhead=16, \
                                                      activation='gelu', dropout = 0.0)
+        
         self.encoder = torch.nn.TransformerEncoder(self.encoding_layer, 5)
         
-        
+
         ## --- DECODER --- ##
         self.decoder_pos_embed = Positional_Encoding_Layer(self.window_size, self.embed_size)
         
         # Implements self-attention with 8 attention heads
-        self.decoding_layer = torch.nn.TransformerDecoderLayer(self.embed_size, 8, \
+        self.decoding_layer = torch.nn.TransformerDecoderLayer(d_model=self.embed_size, nhead=8, \
                                                      activation='gelu', dropout = 0.0)
         self.decoder = torch.nn.TransformerDecoder(self.decoding_layer, 5)
         
@@ -69,8 +71,9 @@ class VisualTransformer(nn.Module):
         # Add positional embeddings for decoder
         positioned_dec = self.decoder_pos_embed(enc_out)
         
-        # Pass through decoder
-        dec_out = self.decoder(positioned_dec)
+        # Pass positioned encoder output
+        # AND original encoder output through decoder
+        dec_out = self.decoder(positioned_dec, enc_out)
         
         # Finally, pass through linear layers (RELU activation for each except last)
         flat = nn.Flatten()(dec_out)
@@ -89,7 +92,8 @@ class Positional_Encoding_Layer(nn.Module):
         """ Initializes trainable positional embeddings to add to the input """
         super(Positional_Encoding_Layer, self).__init__()
         
-        self.pos_embed = nn.Parameter(torch.tensor(window_size, emb_size))
+        #self.pos_embed = nn.Parameter(torch.tensor([window_size, emb_size], dtype=torch.float32))
+        self.pos_embed = nn.Parameter(torch.rand(window_size, emb_size))
 
     def forward(self, word_embeds):
         """ Adds (trainable) positional embeddings to the input """
