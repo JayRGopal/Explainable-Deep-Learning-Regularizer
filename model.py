@@ -16,8 +16,8 @@ class SimpleCNN(nn.Module):
         self.conv_layer4 = nn.Conv2d(32,64, 3, 1)
         # self.conv_layer5 = nn.Conv2d(32, 32, 3, 1)
 
-        self.linear1 = nn.Linear(64*6*6, 32*6*6)
-        self.linear2 = nn.Linear(32*6*6, 16*6*6)
+        self.linear1 = nn.Linear(64*5*5, 32*5*5)
+        self.linear2 = nn.Linear(32*5*5, 16*6*6)
         self.linear3 = nn.Linear(16*6*6, 8*6*6)
         self.linear4 = nn.Linear(8*6*6, 144)
         self.linear5 = nn.Linear(144, 50)
