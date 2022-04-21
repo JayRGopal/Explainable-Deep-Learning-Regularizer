@@ -12,10 +12,10 @@ def run_cnn():
     num_epochs = 1
 
     transform = tr.Compose([tr.ToTensor(), tr.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-    training_dataset = torchvision.datasets.CIFAR10(root='./data', train=True, download=False, transform=transform)
+    training_dataset = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
     training_dataloader = torch.utils.data.DataLoader(training_dataset, batch_size=batch_size, shuffle=True, num_workers=2)
 
-    testing_dataset = torchvision.datasets.CIFAR10(root='./data', train=False, download=False, transform=transform)
+    testing_dataset = torchvision.datasets.CIFAR10(root='./data', train=False, download=True, transform=transform)
     testing_dataloader = torch.utils.data.DataLoader(testing_dataset, batch_size=batch_size, shuffle=False, num_workers=2)
 
     classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
