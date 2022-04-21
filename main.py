@@ -52,7 +52,7 @@ def train(model, dataloader, loss_func, optimizer, num_epochs, device):
             print("Epoch {}: {}".format(epoch, epoch_loss))
             total_loss += epoch_loss
     
-    return total_loss / num_epochs
+    return total_loss / (num_epochs * len(dataloader.dataser))
         
 
 
