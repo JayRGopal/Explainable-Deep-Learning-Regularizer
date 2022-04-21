@@ -1,4 +1,3 @@
-from turtle import forward
 from torch import nn
 import torch.nn.functional as F
 import torch
@@ -40,5 +39,3 @@ class SimpleCNN(nn.Module):
         vec_output = F.relu(self.linear6(vec_output))
         vec_output = F.relu(self.linear7(vec_output))
         return vec_output
-        
-
