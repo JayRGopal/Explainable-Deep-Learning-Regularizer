@@ -2,7 +2,7 @@ import sys
 import torchvision
 import torch
 import torchvision.transforms as tr
-from model import SimpleCNN
+from cnn import SimpleCNN
 from transformer import VisualTransformer
 import tqdm
 
