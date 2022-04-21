@@ -9,28 +9,26 @@ import tqdm
 def run_cnn(device):
     batch_size = 144
     learning_rate = 1e-3
-    num_epochs = 10
+    num_epochs = 30
 
     transform = tr.Compose([tr.ToTensor(), tr.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-    training_dataset = torchvision.datasets.CIFAR10(root='./data', train=True,\
-         download=True, transform=transform)
-    training_dataloader = torch.utils.data.DataLoader(training_dataset, \
-        batch_size=batch_size, shuffle=True, num_workers=2)
+    training_dataset = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
+    training_dataloader = torch.utils.data.DataLoader(training_dataset, batch_size=batch_size, shuffle=True, num_workers=2)
 
-    testing_dataset = torchvision.datasets.CIFAR10(root='./data', train=False, \
-        download=True, transform=transform)
-    testing_dataloader = torch.utils.data.DataLoader(testing_dataset, \
-        batch_size=batch_size, shuffle=False, num_workers=2)
+    testing_dataset = torchvision.datasets.CIFAR10(root='./data', train=False, download=True, transform=transform)
+    testing_dataloader = torch.utils.data.DataLoader(testing_dataset, batch_size=batch_size, shuffle=False, num_workers=2)
 
     classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
     model = SimpleCNN()
     model.to(device)
     
-    optimizer = torch.optim.Adam(SimpleCNN.parameters(model), learning_rate)
+    optimizer = torch.optim.Adam(SimpleCNN.parameters(model), learning_rate) 
     loss_func = torch.nn.CrossEntropyLoss()
     train_loss = train(model, training_dataloader, loss_func, optimizer, num_epochs, device)
     test_loss, accuracy = test(model, testing_dataloader, loss_func, optimizer, device)
+
+    torch.save(model, 'cnn_model_control.pth')
 
     return train_loss, test_loss, accuracy
 
@@ -52,7 +50,6 @@ def train(model, dataloader, loss_func, optimizer, num_epochs, device):
                 optimizer.step()
 
                 epoch_loss += loss.item() * X.shape[0]
-
             epoch_loss = epoch_loss / len(dataloader.dataset)
             print("Epoch {}: {}".format(epoch, epoch_loss))
             total_loss += epoch_loss
