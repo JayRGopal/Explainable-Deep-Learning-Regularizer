@@ -89,6 +89,7 @@ def train(model, dataloader, loss_func, optimizer, num_epochs, device):
     return total_loss / (num_epochs)
         
 
+
 def test(model, dataloader, loss_func, device):
     """
     Computes the average loss and average accuracy of the given model on the test set.

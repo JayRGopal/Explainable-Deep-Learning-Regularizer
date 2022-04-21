@@ -3,7 +3,7 @@ import torch.nn.functional as F
 
 class SimpleCNN(nn.Module):
     """
-    Class representing convolutional neural network through PyTorch DL framework
+    Class representing convolutional neural network through the PyTorch DL framework
     """
 
     def __init__(self, input_channels = 3, class_num = 10) -> None:
@@ -36,19 +36,20 @@ class SimpleCNN(nn.Module):
     def forward(self, X):
         """
         Performs forward propagation through the defined CNN layers for given input
-
         :param X: Input to the CNN network. Dimension (batch size, 3 , 32, 32)
-
         :return: (batch size, 10) torch tensor output of convolution and 
         subsequent linear layers. Size 10 given the 10 predicted classes.
         """
-
+        
+        # Pass through convolutional layers, with relu activation
         conv_output = self.pool1(F.relu(self.conv_layer1(X)))
         conv_output = self.pool2(F.relu(self.conv_layer2(conv_output)))
         conv_output = F.relu(self.conv_layer3(conv_output))
         conv_output = F.relu(self.conv_layer4(conv_output))
-        # conv_output = F.relu(self.conv_layer5(conv_output))
         
+        
+        # Pass through linear layers.
+        # RELU for every layer except last. Softmax for the last layer.
         vec_output = nn.Flatten()(conv_output)
         vec_output = F.relu(self.linear1(vec_output))
         vec_output = F.relu(self.linear2(vec_output))
@@ -56,5 +57,7 @@ class SimpleCNN(nn.Module):
         vec_output = F.relu(self.linear4(vec_output))
         vec_output = F.relu(self.linear5(vec_output))
         vec_output = F.relu(self.linear6(vec_output))
-        vec_output = F.relu(self.linear7(vec_output))
+        vec_output = F.softmax(self.linear7(vec_output))
         return vec_output
+    
+    
