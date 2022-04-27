@@ -57,7 +57,7 @@ class SimpleCNN(nn.Module):
         vec_output = F.relu(self.linear4(vec_output))
         vec_output = F.relu(self.linear5(vec_output))
         vec_output = F.relu(self.linear6(vec_output))
-        vec_output = F.softmax(self.linear7(vec_output))
+        vec_output = F.relu(self.linear7(vec_output))
         return vec_output
     
     
