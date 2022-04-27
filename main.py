@@ -46,7 +46,7 @@ def run_model(device, model, batch_size=144, learning_rate=1e-3, num_epochs=10, 
     train_loss = train(model, training_dataloader, loss_func, optimizer, num_epochs, device)
     test_loss, accuracy = test(model, testing_dataloader, loss_func, device)
     
-    torch.save(model, save_name)
+    torch.save(model.state_dict(), save_name)
     
     return train_loss, test_loss, accuracy
 
