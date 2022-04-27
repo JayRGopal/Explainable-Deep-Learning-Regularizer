@@ -5,7 +5,6 @@ import torchvision.transforms as tr
 from cnn import SimpleCNN
 from transformer import VisualTransformer
 import tqdm
-from vit_pytorch import ViT
 
 
 def run_model(device, model, batch_size=144, learning_rate=1e-3, num_epochs=10, \
@@ -139,17 +138,7 @@ def correct_predict_num(logit, target):
 
 def main():
     
-    model_types = {"CNN" : SimpleCNN(), "TRANSFORMER" : ViT(
-        image_size = 32,
-        patch_size = 8,
-        num_classes = 10,
-        dim = 10,
-        depth = 10,
-        heads = 5,
-        mlp_dim = 2048,
-        dropout = 0.0,
-        emb_dropout = 0.0
-    )}
+    model_types = {"CNN" : SimpleCNN(), "TRANSFORMER" : VisualTransformer()}
     
     if len(sys.argv) != 2 or sys.argv[1] not in model_types.keys():
         print("USAGE: python main.py <Model Type>")
@@ -159,7 +148,7 @@ def main():
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     print("Device: ", device)
     
-    model = model_types[sys.argv[1]]
+    model = model_types[sys.argv[1]]()
     
     train_loss, test_loss, test_acc = run_model(device, model)
     print("Training loss: {}".format(train_loss))
