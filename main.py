@@ -148,7 +148,7 @@ def main():
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     print("Device: ", device)
     
-    model = model_types[sys.argv[1]]()
+    model = model_types[sys.argv[1]]
     
     train_loss, test_loss, test_acc = run_model(device, model)
     print("Training loss: {}".format(train_loss))
