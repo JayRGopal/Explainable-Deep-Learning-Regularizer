@@ -42,22 +42,22 @@ class SimpleCNN(nn.Module):
         """
         
         # Pass through convolutional layers, with relu activation
-        conv_output = self.pool1(F.relu(self.conv_layer1(X)))
-        conv_output = self.pool2(F.relu(self.conv_layer2(conv_output)))
-        conv_output = F.relu(self.conv_layer3(conv_output))
-        conv_output = F.relu(self.conv_layer4(conv_output))
+        conv_output = self.pool1(F.gelu(self.conv_layer1(X)))
+        conv_output = self.pool2(F.gelu(self.conv_layer2(conv_output)))
+        conv_output = F.gelu(self.conv_layer3(conv_output))
+        conv_output = F.gelu(self.conv_layer4(conv_output))
         
         
         # Pass through linear layers.
         # RELU for every layer except last. Softmax for the last layer.
         vec_output = nn.Flatten()(conv_output)
-        vec_output = F.relu(self.linear1(vec_output))
-        vec_output = F.relu(self.linear2(vec_output))
-        vec_output = F.relu(self.linear3(vec_output))
-        vec_output = F.relu(self.linear4(vec_output))
-        vec_output = F.relu(self.linear5(vec_output))
-        vec_output = F.relu(self.linear6(vec_output))
-        vec_output = F.relu(self.linear7(vec_output))
+        vec_output = F.gelu(self.linear1(vec_output))
+        vec_output = F.gelu(self.linear2(vec_output))
+        vec_output = F.gelu(self.linear3(vec_output))
+        vec_output = F.gelu(self.linear4(vec_output))
+        vec_output = F.gelu(self.linear5(vec_output))
+        vec_output = F.gelu(self.linear6(vec_output))
+        vec_output = F.gelu(self.linear7(vec_output))
         return vec_output
     
     
