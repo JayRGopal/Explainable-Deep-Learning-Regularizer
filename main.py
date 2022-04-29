@@ -7,7 +7,7 @@ from transformer import VisualTransformer
 import tqdm
 
 
-def run_model(device, model, batch_size=144, learning_rate=1e-3, num_epochs=10, \
+def run_model(device, model, batch_size=144, learning_rate=3e-3, num_epochs=10, \
               save_name='cnn_model_control.pth'):
     """
     Preprocesses CIFAR10 data, trains the given model, tests it, and saves
@@ -19,7 +19,7 @@ def run_model(device, model, batch_size=144, learning_rate=1e-3, num_epochs=10, 
     :param batch_size: Number of images to compute gradients for before updating weights
      Default of 144
     :param learning_rate: Hyperparamter that sets the rate at which gradient descent is
-     performed. Default of 1e-3
+     performed. Default of 3e-3
     :param num_epochs: Number of epochs to train the model for
     :param save_name: Name of the file that will have the model's trainable parameters
      after training is complete
