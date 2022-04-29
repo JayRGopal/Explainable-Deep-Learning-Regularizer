@@ -35,17 +35,17 @@ class SimpleCNN(nn.Module):
         # self.conv_layer1 = nn.Conv2d(input_channels, 16, 8, 1)
         # self.pool1 = nn.MaxPool2d(3, 2)
         # self.conv_layer2 = nn.Conv2d(16, 16, 5, 1)
-        # self.pool2 = nn.MaxPool2d(3, 1)
-        # self.conv_layer3 = nn.Conv2d(16, 32, 5, 1)
+        # self.pool2 = nn.MaxPool2d(2, 1)
+        # self.conv_layer3 = nn.Conv2d(16, 32, 3, 1)
         # # self.conv_layer4 = nn.Conv2d(32,64, 3, 1)
 
-        # self.linear1 = nn.Linear(128, 80)
-        # self.linear2 = nn.Linear(80, 50)
-        # self.linear3 = nn.Linear(50, 20)
-        # self.linear4 = nn.Linear(20, 20)
-        # self.linear5 = nn.Linear(20, 10)
-        # self.linear6 = nn.Linear(10, class_num)
-        # # self.linear7 = nn.Linear(class_num, class_num)
+        # self.linear1 = nn.Linear(800, 128)
+        # self.linear2 = nn.Linear(128, 90)
+        # self.linear3 = nn.Linear(90, 40)
+        # self.linear4 = nn.Linear(40, 40)
+        # self.linear5 = nn.Linear(40, 20)
+        # self.linear6 = nn.Linear(20, class_num)
+        # self.linear7 = nn.Linear(class_num, class_num)
         
     
     def forward(self, X):
