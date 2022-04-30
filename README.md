@@ -1,8 +1,20 @@
 # Reg-Explain
 Evaluating the impact of regularization on explainability
 
-Two custom-built models have been coded via PyTorch to aid in this endeavor: 
-1) A Simple CNN
-2) A Visual Transformer
+A custom-built simple CNN has been coded via PyTorch to aid in this endeavor.
+
+Additionally, Resnet50 is being used. It is being trained via code from the PyTorch-Image-Models (TIMM) repository.
 
 The dataset being used is CIFAR10.
+
+
+RESULTS (Test Accuracy):
+
+Resnet50-Dropout: 96.34%
+
+Resnet50-L2: 96.42%
+
+SimpleCNN-Control: 61.72%
+
+SimpleCNN-L2: 60.15%
+

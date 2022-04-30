@@ -3,6 +3,7 @@ import torchvision
 import torch
 import torchvision.transforms as tr
 from cnn import SimpleCNN
+from cnn_dropout import SimpleCNN_DO
 from transformer import VisualTransformer
 import tqdm
 
@@ -138,11 +139,11 @@ def correct_predict_num(logit, target):
 
 def main():
     
-    model_types = {"CNN" : SimpleCNN(), "TRANSFORMER" : VisualTransformer()}
+    model_types = {"CNN" : SimpleCNN(), "CNN_DO" : SimpleCNN_DO(), "TRANSFORMER" : VisualTransformer()}
     
     if len(sys.argv) != 2 or sys.argv[1] not in model_types.keys():
         print("USAGE: python main.py <Model Type>")
-        print("<Model Type>: [CNN/TRANSFORMER]")
+        print("<Model Type>: [CNN/CNN_DO/TRANSFORMER]")
         exit()
     
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
