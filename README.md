@@ -14,3 +14,5 @@ Resnet50-Dropout: 96.34%
 
 Resnet50-L2: 96.42%
 
+SimpleCNN-Control: 61.72%
+
