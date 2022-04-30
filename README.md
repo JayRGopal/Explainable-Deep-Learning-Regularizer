@@ -16,3 +16,5 @@ Resnet50-L2: 96.42%
 
 SimpleCNN-Control: 61.72%
 
+SimpleCNN-L2: 60.15%
+
