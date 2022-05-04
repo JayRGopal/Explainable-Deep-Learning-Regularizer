@@ -1,0 +1,30 @@
+Batch size: 64
+Learning rate: 1e-3
+Epochs: 8
+Optimizer: Adam
+Lambda: 1e-8
+Dropout: 0.3
+
+Device:  cuda:0
+Files already downloaded and verified
+Files already downloaded and verified
+Epoch 0: 100% 782/782 [00:20<00:00, 37.49batch/s]
+Epoch 0: 1.571354607105255
+Epoch 1: 100% 782/782 [00:21<00:00, 36.90batch/s]
+Epoch 1: 1.2431912436676025
+Epoch 2: 100% 782/782 [00:21<00:00, 36.85batch/s]
+Epoch 2: 1.061289261779785
+Epoch 3: 100% 782/782 [00:21<00:00, 37.03batch/s]
+Epoch 3: 0.9231237434005737
+Epoch 4: 100% 782/782 [00:21<00:00, 37.16batch/s]
+Epoch 4: 0.8156719759559631
+Epoch 5: 100% 782/782 [00:21<00:00, 37.10batch/s]
+Epoch 5: 0.7158697701644897
+Epoch 6: 100% 782/782 [00:20<00:00, 37.42batch/s]
+Epoch 6: 0.6359676243972778
+Epoch 7: 100% 782/782 [00:20<00:00, 37.46batch/s]
+Epoch 7: 0.5615942897033691
+Test progress: 100% 157/157 [00:03<00:00, 44.21batch/s]
+Training loss: 0.9410078145217895
+Testing Loss: 0.9709527975082397
+Testing Accuracy: 0.6876
