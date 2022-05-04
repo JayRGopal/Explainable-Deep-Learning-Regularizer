@@ -8,7 +8,7 @@ from transformer import VisualTransformer
 import tqdm
 
 
-def run_model(device, model, batch_size=144, learning_rate=3e-3, num_epochs=10, \
+def run_model(device, model, batch_size=64, learning_rate=1e-3, num_epochs=10, \
               save_name='cnn_model_control.pth'):
     """
     Preprocesses CIFAR10 data, trains the given model, tests it, and saves
