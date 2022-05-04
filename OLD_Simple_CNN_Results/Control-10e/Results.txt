@@ -1,0 +1,29 @@
+Probability: 0.8528971076011658
+
+Device:  cuda:0
+Files already downloaded and verified
+Files already downloaded and verified
+Epoch 0: 100% 348/348 [00:10<00:00, 33.17batch/s]
+Epoch 0: 1.8175929384231568
+Epoch 1: 100% 348/348 [00:10<00:00, 32.92batch/s]
+Epoch 1: 1.497907636795044
+Epoch 2: 100% 348/348 [00:10<00:00, 32.76batch/s]
+Epoch 2: 1.3605762284088134
+Epoch 3: 100% 348/348 [00:10<00:00, 33.30batch/s]
+Epoch 3: 1.2474345228767394
+Epoch 4: 100% 348/348 [00:10<00:00, 32.84batch/s]
+Epoch 4: 1.1808156398773193
+Epoch 5: 100% 348/348 [00:10<00:00, 33.01batch/s]
+Epoch 5: 1.1216814610481263
+Epoch 6: 100% 348/348 [00:10<00:00, 32.97batch/s]
+Epoch 6: 1.0705133485031129
+Epoch 7: 100% 348/348 [00:10<00:00, 33.17batch/s]
+Epoch 7: 1.0371821047782899
+Epoch 8: 100% 348/348 [00:10<00:00, 33.25batch/s]
+Epoch 8: 1.0070468439292908
+Epoch 9: 100% 348/348 [00:10<00:00, 33.39batch/s]
+Epoch 9: 0.9730664141273498
+Test progress: 100% 70/70 [00:02<00:00, 34.88batch/s]
+Training loss: 1.2313817138767242
+Testing Loss: 1.1284388248443604
+Testing Accuracy: 0.6172
