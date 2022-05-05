@@ -8,6 +8,11 @@ Additionally, Resnet50 is being used. It is being trained via code from the PyTo
 The dataset being used is CIFAR10.
 
 
+# Notes
+Folders labeled as "OLD" have an old method of formatting that is no longer favored. They remain on the GitHub for reference.
+
+The custom-built transformer has not undergone a thorough explainability analysis yet.
+
 # Resnet50 310 Epoch Results
 Resnet50-Control: 96.48%
 
