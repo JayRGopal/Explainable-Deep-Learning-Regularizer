@@ -17,11 +17,11 @@ Resnet50-L2: 96.42%
 
 
 # Vgg19 310 Epoch Results
-Vgg19-Control: 96.48%
+Vgg19-Control: 91.45%
 
-Vgg19-Dropout: 96.34%
+Vgg19-Dropout: 91.83%
 
-Vgg19-L2: 96.42%
+Vgg19-L2: 91.37%
 
 
 # SimpleCNN 8 Epoch Results
