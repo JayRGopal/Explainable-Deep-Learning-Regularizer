@@ -16,7 +16,15 @@ Resnet50-Dropout: 96.34%
 
 Resnet50-L2: 96.42%
 
-SimpleCNN-Control: 61.72%
+# SimpleCNN 8 epoch results
+SimpleCNN-Control: 64.00%
 
-SimpleCNN-L2: 60.15%
+SimpleCNN-L2 1e-5: 66.63%
 
+SimpleCNN-L2 1e-8: 65.83%
+
+SimpleCNN-Dropout: 68.32%
+
+SimpleCNN-Dropout-L2 1e-5: 68.06%
+
+SimpleCNN-Dropout-L2 1e-8: 68.76%
