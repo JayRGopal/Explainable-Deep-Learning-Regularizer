@@ -10,6 +10,8 @@ The dataset being used is CIFAR10.
 
 RESULTS (Test Accuracy):
 
+Resnet50-Control: 96.48%
+
 Resnet50-Dropout: 96.34%
 
 Resnet50-L2: 96.42%
